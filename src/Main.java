@@ -5,12 +5,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         // prvi
         System.out.println("Unesite jedan cijeli broj:");
-        int n = scanner.nextInt();
-        int suma = 0;
-        for (int i = 1; i <=n; i++ ){
-        suma = suma + i;
+        int broj = scanner.nextInt();
+        int brojZnamenki = 0;
+        do {
+            broj= broj / 10;
+            brojZnamenki ++;
         }
-        System.out.println("Suma brojeva je:" + suma);
+        while (broj > 0 );
+        System.out.println("Broj znamenki je: " + brojZnamenki);
+
     }
 
 }
