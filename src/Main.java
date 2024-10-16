@@ -3,17 +3,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        // prvi
-        System.out.println("Unesite jedan cijeli broj:");
-        int broj = scanner.nextInt();
-        int brojZnamenki = 0;
-        do {
-            broj= broj / 10;
-            brojZnamenki ++;
+        int[] brojevi = new int[10];
+        int[] parniBrojevi = new int[10];
+        int brojac = 0;
+
+        System.out.println("Unesite deset cijelih brojeva:");
+        for (int i = 0; i < 10; i++) {
+            brojevi[i] = scanner.nextInt();
         }
-        while (broj > 0 );
-        System.out.println("Broj znamenki je: " + brojZnamenki);
-
+        for (int i = 0; i < 10; i++) {
+            if (brojevi[i] % 2 == 0) {
+                parniBrojevi[brojac] = brojevi[i];
+                brojac++;
+            }
+        }
+        System.out.println("Parni brojevi su:");
+        for (int i = 0; i < brojac; i++) {
+            System.out.println(parniBrojevi[i] + "");
+        }
     }
-
 }
