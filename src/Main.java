@@ -5,21 +5,23 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int[] brojevi = new int[10];
         int[] parniBrojevi = new int[10];
-        int brojac = 0;
+        int brojacParnih = 0;
+        int i = 0;
 
         System.out.println("Unesite deset cijelih brojeva:");
-        for (int i = 0; i < 10; i++) {
-            brojevi[i] = scanner.nextInt();
-        }
-        for (int i = 0; i < 10; i++) {
-            if (brojevi[i] % 2 == 0) {
-                parniBrojevi[brojac] = brojevi[i];
-                brojac++;
+        while (i < 10) {
+            int broj = scanner.nextInt();
+            if (broj % 2 == 0) {
+                parniBrojevi[brojacParnih] = broj;
+                brojacParnih++;
             }
+            i++;
         }
         System.out.println("Parni brojevi su:");
-        for (int i = 0; i < brojac; i++) {
+        i = 0;
+        while (i < brojacParnih) {
             System.out.println(parniBrojevi[i] + "");
+            i++;
         }
     }
 }
