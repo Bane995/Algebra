@@ -3,25 +3,31 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] brojevi = new int[10];
-        int[] parniBrojevi = new int[10];
-        int brojacParnih = 0;
-        int i = 0;
 
-        System.out.println("Unesite deset cijelih brojeva:");
-        while (i < 10) {
-            int broj = scanner.nextInt();
-            if (broj % 2 == 0) {
-                parniBrojevi[brojacParnih] = broj;
-                brojacParnih++;
+        System.out.println("Unesite rečenicu:");
+        String recenica = scanner.nextLine();
+        String[] rijeci = recenica.split("\\s+");
+
+        String najduzaRijec = "";
+        int brojRijeci = rijeci.length;
+        int duljinaSvihRijeci = 0;
+
+        System.out.println("Riječi duže od 5 slova:");
+        for (String rijec : rijeci) {
+            if (rijec.length() > 5) {
+                System.out.println(rijec);
             }
-            i++;
+            if (rijec.length() > najduzaRijec.length()) {
+                najduzaRijec = rijec;
+            }
+            duljinaSvihRijeci += rijec.length();
         }
-        System.out.println("Parni brojevi su:");
-        i = 0;
-        while (i < brojacParnih) {
-            System.out.println(parniBrojevi[i] + "");
-            i++;
-        }
+
+        double prosjecnaDuljina = brojRijeci > 0 ? (double) duljinaSvihRijeci / brojRijeci : 0;
+
+        System.out.println("Najduža riječ: " + najduzaRijec);
+        System.out.printf("Prosječna duljina riječi: %.2f\n", prosjecnaDuljina);
+
+        scanner.close();
     }
 }
