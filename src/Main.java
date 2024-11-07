@@ -1,18 +1,20 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-        Polaznik polaznik1 = new Polaznik("Matej","Lelek");
-        Polaznik polaznik2 = new Polaznik("Marko","Markić",25, "M" );
-        Polaznik polaznik3 = new Polaznik();
 
-        polaznik2.promjeniDob(26);
-        polaznik3.promjeniIme("Luka");
-        polaznik3.promjeniPrezime("Lučić");
+        TekuciRacun tekuciRacun = new TekuciRacun("12345", new BigDecimal(300), "Vlatko");
+        tekuciRacun.uplatiSredstva(new BigDecimal(20));
+        tekuciRacun.isplatiSredstva(new BigDecimal(10));
+        tekuciRacun.obracunKamate();
 
-        System.out.println(polaznik1.dohvatiIme() + " " + polaznik1.dohvatiPrezime());
+        StedniRacun stedniRacun = new StedniRacun("6789", new BigDecimal(2000), "Banović");
+        stedniRacun.uplatiSredstva(new BigDecimal(20));
+        stedniRacun.isplatiSredstva(new BigDecimal(10));
+        stedniRacun.obracunKamate();
+
     }
 }
