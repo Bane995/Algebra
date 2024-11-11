@@ -5,16 +5,31 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        TekuciRacun tekuciRacun = new TekuciRacun("12345", new BigDecimal(300), "Vlatko");
-        tekuciRacun.uplatiSredstva(new BigDecimal(20));
-        tekuciRacun.isplatiSredstva(new BigDecimal(10));
-        tekuciRacun.obracunKamate();
-
-        StedniRacun stedniRacun = new StedniRacun("6789", new BigDecimal(2000), "Banović");
-        stedniRacun.uplatiSredstva(new BigDecimal(20));
-        stedniRacun.isplatiSredstva(new BigDecimal(10));
-        stedniRacun.obracunKamate();
-
+        Scanner scanner = new Scanner(System.in);
+        // Unos iznosa
+        System.out.println("Unesite iznos koji želite uplatiti.");
+        double iznos = scanner.nextDouble();
+        // Odabir metode placanja
+        System.out.println("Unesite broj za odabir metode plaćanja: 1. Kreditna kartica, 2. Gotovina, 3. Paypal");
+        int odabirMetode = scanner.nextInt();
+        Placanje placanje = null;
+        switch (odabirMetode){
+            case 1:
+                placanje = new KreditnaKartica();
+                break;
+            case 2:
+                placanje = new Gotovina();
+                break;
+            case 3:
+                placanje = new PayPal();
+                break;
+        }
+        if(placanje != null) {
+            placanje.platiti(iznos);
+            System.out.println(placanje.getDetalje());
+        }
+        else {
+            System.out.println("Niste odabrali valjanu opciju plaćanja");
+        }
     }
 }
