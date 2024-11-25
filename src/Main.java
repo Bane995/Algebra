@@ -1,42 +1,48 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
 public class Main {
         public static void main(String[] args) {
+            Knjiznica knjiznica = new Knjiznica();
+
             Scanner scanner = new Scanner(System.in);
-            int broj = 0;
 
-            while (true) {
-                System.out.print("Unesite cijeli broj: ");
-                try {
-                    broj = scanner.nextInt();
-                    if (broj < 0) {
-                        System.out.println("Faktorijel nije definiran za negativne brojeve. Molim pokušajte ponovno.");
-                    } else {
-                        break;
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Pogrešan unos. Molim unesite cijeli broj.");
-                    scanner.next();
-                }
+            knjiznica.dodajKnjigu("1984");
+            knjiznica.dodajKnjigu("Ponos i predrasude");
+            knjiznica.dodajKnjigu("Mali princ");
+
+            System.out.println("Unesite broj članova:");
+            int brojClanova = scanner.nextInt();
+            scanner.nextLine();
+
+            for (int i = 0; i < brojClanova; i++) {
+                System.out.println("Unesite ime člana:");
+                String ime = scanner.nextLine();
+                System.out.println("Unesite prezime člana:");
+                String prezime = scanner.nextLine();
+                System.out.println("Unesite članski broj:");
+                int clanskiBroj = scanner.nextInt();
+                scanner.nextLine();
+
+                Clan clan = new Clan(ime, prezime, clanskiBroj);
+                knjiznica.dodajClana(clan);
+            }
+            System.out.println("Unesite ime člana koji posuđuje knjigu:");
+            String imeClana = scanner.nextLine();
+            Clan odabraniClan = knjiznica.clanovi.stream()
+                    .filter(clan -> clan.getIme().equalsIgnoreCase(imeClana))
+                    .findFirst().orElse(null);
+
+            if (odabraniClan != null) {
+                System.out.println("Unesite naslov knjige za posudbu:");
+                String naslovKnjige = scanner.nextLine();
+                knjiznica.posudiKnjigu(naslovKnjige, odabraniClan);
+                System.out.println("Unesite naslov knjige za vraćanje:");
+                String naslovZaVracanje = scanner.nextLine();
+                knjiznica.vratiKnjigu(naslovZaVracanje, odabraniClan);
+            } else {
+                System.out.println("Član nije pronađen.");
             }
 
-
-            try {
-                long faktorijel = izracunajFaktorijel(broj);
-                System.out.println("Faktorijel broja " + broj + " je: " + faktorijel);
-            } catch (ArithmeticException e) {
-                System.out.println("Došlo je do pogreške prilikom računanja faktorijela: " + e.getMessage());
-            }
-
+            knjiznica.ispisiPodatkeUDatoteke();
             scanner.close();
-        }
-
-        public static long izracunajFaktorijel(int broj) throws ArithmeticException {
-            long faktorijel = 1;
-            for (int i = 1; i <= broj; i++) {
-                faktorijel = Math.multiplyExact(faktorijel, i);
-            }
-            return faktorijel;
         }
 }
