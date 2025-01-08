@@ -1,48 +1,55 @@
 import java.util.Scanner;
+import java.util.TreeSet;
+
 public class Main {
         public static void main(String[] args) {
-            Knjiznica knjiznica = new Knjiznica();
 
+            TreeSet<String> gradovi = new TreeSet<>();
             Scanner scanner = new Scanner(System.in);
 
-            knjiznica.dodajKnjigu("1984");
-            knjiznica.dodajKnjigu("Ponos i predrasude");
-            knjiznica.dodajKnjigu("Mali princ");
+            System.out.println("Unesite nazive gradova (za završetak unesite 'kraj'):");
+            while (true) {
 
-            System.out.println("Unesite broj članova:");
-            int brojClanova = scanner.nextInt();
-            scanner.nextLine();
+                String grad = scanner.nextLine();
 
-            for (int i = 0; i < brojClanova; i++) {
-                System.out.println("Unesite ime člana:");
-                String ime = scanner.nextLine();
-                System.out.println("Unesite prezime člana:");
-                String prezime = scanner.nextLine();
-                System.out.println("Unesite članski broj:");
-                int clanskiBroj = scanner.nextInt();
-                scanner.nextLine();
+                if (grad.equalsIgnoreCase("kraj")) break;
 
-                Clan clan = new Clan(ime, prezime, clanskiBroj);
-                knjiznica.dodajClana(clan);
+                gradovi.add(grad);
             }
-            System.out.println("Unesite ime člana koji posuđuje knjigu:");
-            String imeClana = scanner.nextLine();
-            Clan odabraniClan = knjiznica.clanovi.stream()
-                    .filter(clan -> clan.getIme().equalsIgnoreCase(imeClana))
-                    .findFirst().orElse(null);
 
-            if (odabraniClan != null) {
-                System.out.println("Unesite naslov knjige za posudbu:");
-                String naslovKnjige = scanner.nextLine();
-                knjiznica.posudiKnjigu(naslovKnjige, odabraniClan);
-                System.out.println("Unesite naslov knjige za vraćanje:");
-                String naslovZaVracanje = scanner.nextLine();
-                knjiznica.vratiKnjigu(naslovZaVracanje, odabraniClan);
+            System.out.println("Gradovi u sortiranom redoslijedu:");
+
+            for (String grad : gradovi) {
+
+                System.out.println(grad);
+            }
+
+            if (!gradovi.isEmpty()) {
+
+                System.out.println("Prvi grad: " + gradovi.first());
+
+                System.out.println("Zadnji grad: " + gradovi.last());
+            }
+
+            System.out.println("Unesite naziv grada koji želite ukloniti:");
+
+            String gradZaBrisanje = scanner.nextLine();
+
+            if (gradovi.remove(gradZaBrisanje)) {
+
+                System.out.println("Grad '" + gradZaBrisanje + "' je uklonjen.");
+
             } else {
-                System.out.println("Član nije pronađen.");
+
+                System.out.println("Grad '" + gradZaBrisanje + "' nije pronađen.");
             }
 
-            knjiznica.ispisiPodatkeUDatoteke();
+            System.out.println("Preostali gradovi u sortiranom redoslijedu:");
+
+            for (String grad : gradovi) {
+
+                System.out.println(grad);
+            }
             scanner.close();
         }
 }
